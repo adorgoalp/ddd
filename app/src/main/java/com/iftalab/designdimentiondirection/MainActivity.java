@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.iftalab.designdimentiondirection.fragments.DialogFragment;
+import com.iftalab.designdimentiondirection.fragments.LauncherIconFragment;
 import com.iftalab.designdimentiondirection.lib.I;
 
 public class MainActivity extends AppCompatActivity
@@ -35,12 +38,18 @@ public class MainActivity extends AppCompatActivity
     private void handleList() {
         ListView lv = (ListView) findViewById(R.id.lv);
         final String[] data = {"Launcher Icon","Dialog","Tab icon","Small contextual icon", "Button","Image"};
+        final Fragment[] fragments = {new LauncherIconFragment(),new DialogFragment()};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                I.toast(data[position]);
+                if(position<2)
+                {
+                    //up my fragment in frame layout. simple 1 line code. I want you to learn it and implement.
+                }else {
+                    I.toast(data[position]);
+                }
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.iftalab.designdimentiondirection;
+package com.iftalab.designdimentiondirection.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,20 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.iftalab.designdimentiondirection.R;
+
 /**
- * Created by Acer PC on 2/12/2017.
+ * @author Ifta
  */
 
-public class LauncherIconFragment extends Fragment {
-    public LauncherIconFragment() {
+public class DialogFragment extends Fragment {
+    public DialogFragment() {
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fake,container,false);
+        View view = inflater.inflate(R.layout.fake,container,false);
         TextView tvFake = (TextView) view.findViewById(R.id.tvFake);
-        tvFake.setText("LauncherIconFragment");
+        tvFake.setText("DialogFragment");
         return view;
     }
 }
