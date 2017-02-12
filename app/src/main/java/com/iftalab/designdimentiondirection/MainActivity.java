@@ -12,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.iftalab.designdimentiondirection.lib.I;
 
@@ -23,23 +26,28 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         I.getBuilder(this).logLevel(I.LogLevel.INFO).logTag("iftaDesign").build();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        handleToolBar();
+        handleFab();
+        handleNav();
+        handleList();
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+    private void handleList() {
+        ListView lv = (ListView) findViewById(R.id.lv);
+        final String[] data = {"Launcher Icon","Dialog","Tab icon","Small contextual icon", "Button","Image"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                I.messageDialog("I am a floating action button. Some designer tends to provide a circular image " +
-                        "asset for me. But this is of no good. I am already circular by default. Programmer can set" +
-                        " my background color. even they can give give me a ripple color change on click. But the icon" +
-                        " inside must be provided by designer. The icon is 96x96px.");
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                I.toast(data[position]);
             }
         });
+    }
+
+    private void handleNav() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
         final CoordinatorLayout homeContent = (CoordinatorLayout) findViewById(R.id.homeContent);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -48,7 +56,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-               homeContent.setTranslationX(slideOffset*drawerView.getWidth());
+                homeContent.setTranslationX(slideOffset*drawerView.getWidth());
 
             }
 
@@ -68,8 +76,25 @@ public class MainActivity extends AppCompatActivity
             }
         });
         toggle.syncState();
+    }
 
+    private void handleFab() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                I.messageDialog("I am a floating action button. Some designer tends to provide a circular image " +
+                        "asset for me. But this is of no good. I am already circular by default. Programmer can set" +
+                        " my background color. even they can give give me a ripple color change on click. But the icon" +
+                        " inside must be provided by designer. The icon is 96x96px.");
+            }
+        });
+    }
 
+    Toolbar toolbar;
+    private void handleToolBar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
